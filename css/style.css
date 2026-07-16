@@ -1,0 +1,260 @@
+/* 1. KHỞI TẠO BIẾN MÀU (Cơ sở cho Dark/Light Mode) */
+:root {
+    --bg-gradient: linear-gradient(135deg, #f9f2f7 0%, #fddbe0 100%);
+    --bg-header: rgba(255, 255, 255, 0.2);
+    --text-color: #333;
+    --logo-ag-color: #ff85a2; /* Hồng pastel cho AG */
+    --border-color: rgba(255, 255, 255, 0.5);
+    --card-bg: rgba(255, 255, 255, 0.25);
+}
+
+body.dark-mode {
+    --bg-gradient: linear-gradient(135deg, #000006 0%, #320a0a 100%);
+    --bg-header: rgba(0, 0, 0, 0.3);
+    --text-color: #fff;
+    --logo-ag-color: #ff0000; /* Đỏ nổi bật cho AG */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* 2. STYLE CHUNG */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--text-color);
+    transition: background 0.5s ease;
+}
+
+/* 3. HEADER (Glassmorphism) */
+.glass-header {
+    background: var(--bg-header);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.logo span {
+    color: var(--logo-ag-color);
+    transition: color 0.3s ease;
+}
+
+/* 4. THANH TÌM KIẾM (Căn giữa) */
+.search-bar {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 25px;
+    width: 40%;
+    outline: none;
+    color: var(--text-color);
+}
+
+/* 5. BUTTON GLASS */
+.glass-btn {
+    background: var(--bg-header);
+    border: 1px solid var(--border-color);
+    padding: 8px 15px;
+    border-radius: 15px;
+    color: var(--text-color);
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* 6. SLIDER TRUYỆN */
+.slider-container {
+    padding: 20px;
+}
+
+.slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.manga-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 15px;
+    min-width: 200px;
+    text-align: center;
+}
+.manga-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.4);
+}
+/* can giua */
+.section-title {
+    text-align: center; /* Căn giữa chữ */
+    margin: 30px 0;     /* Tạo khoảng cách trên dưới */
+    font-size: 32px;    /* Làm tiêu đề nổi bật hơn */
+    color: var(--text-color);
+}
+
+/*/////////////////////////////////////////////////////////////*/
+
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 900px;
+    color: var(--text-color);
+}
+
+.info-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.manga-cover {
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.status-badge {
+    background: #00ff88;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+/* Style cho container chứa danh sách chương */
+#chapter-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* Biến từng chương thành các khối (giống tấm 2) */
+#chapter-list li {
+    background: rgba(255, 255, 255, 0.05); /* Nền tối nhẹ */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+#chapter-list li:hover {
+    background: rgba(255, 255, 255, 0.1); /* Sáng lên khi di chuột vào */
+}
+
+/* Xóa gạch chân và đổi màu chữ cho link */
+#chapter-list li a {
+    text-decoration: none; /* Xóa gạch chân */
+    color: var(--text-color); /* Lấy màu chữ chung của trang */
+    display: block; /* Để bấm vào cả khối đều được */
+    font-size: 16px;
+}
+
+/* Thêm hiệu ứng khi hover vào link */
+/*manga trên trang chính*/
+#manga-list {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 bộ mỗi hàng */
+    gap: 15px; /* Khoảng cách giữa các card */
+    padding: 20px;
+}
+
+.manga-card img {
+    width: 100%;
+    aspect-ratio: 2 / 3; /* Tỉ lệ chuẩn ảnh bìa manga */
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.manga-card h3 {
+    margin: 10px 0 5px 0;
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Nếu tên quá dài sẽ hiện dấu ... */
+}
+
+.chapter-count {
+    font-size: 18px;
+    color: #000000; /* Màu đỏ nổi bật cho số chương */
+    margin-bottom: 10px;
+}
+/* Khi ở chế độ Dark Mode */
+body.dark-mode .chapter-count {
+    color: #ffffff; /* Chuyển màu chữ sang trắng */
+}
+
+/* Hoặc nếu bạn muốn nó là màu xám nhạt cho dịu mắt */
+body.dark-mode .chapter-count {
+    color: #bdc3c7; 
+}
+/*nút nhỏ ở góc bìa*/
+/* --- Chấm trạng thái (Style chung) --- */
+.status-dot {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 14px; /* Tăng kích thước xíu để dễ nhìn hiệu ứng */
+    height: 14px;
+    border-radius: 50%;
+    z-index: 10;
+    border: 2px solid rgba(0, 0, 0, 0.2); /* Viền tối nhẹ */
+    transition: all 0.3s ease; /* Hiệu ứng mượt mà */
+}
+
+/* Hiệu ứng khi rê chuột vào card (tùy chọn, làm sáng thêm) */
+.manga-card:hover .status-dot {
+    filter: brightness(1.2); /* Sáng hơn khi hover */
+}
+
+/* --- Đèn Neon Xanh lá (Ongoing) --- */
+.dot-ongoing {
+    /* Màu xanh neon tươi */
+    background-color: #39ff14; 
+    /* Xếp 3 lớp bóng: bóng mờ nhỏ, bóng trung bình, bóng tỏa rộng */
+    box-shadow: 
+        0 0 5px #39ff14,   /* Bóng sát tâm */
+        0 0 10px #39ff14,  /* Bóng tỏa trung bình */
+        0 0 20px #32cd32,  /* Bóng tỏa rộng màu xanh đậm hơn */
+        inset 0 0 5px rgba(255,255,255,0.5); /* Ánh sáng bên trong */
+}
+
+/* --- Đèn Neon Đỏ (Completed) --- */
+.dot-completed {
+    /* Màu đỏ neon rực */
+    background-color: #ff073a;
+    /* Xếp 3 lớp bóng đỏ */
+    box-shadow: 
+        0 0 5px #ff073a,
+        0 0 10px #ff073a,
+        0 0 20px #b31b1b,
+        inset 0 0 5px rgba(255,255,255,0.5);
+}

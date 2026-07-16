@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đọc truyện</title>
+    <!-- Nhớ trỏ đúng đến file CSS của bạn -->
+    <link rel="stylesheet" href="css/reader.css">
+</head>
+<body>
+
+    <!-- Header: Logo và Nút chuyển sáng/tối -->
+    <header class="reader-header">
+        <a href="index.html" class="logo">Manga<span>AG</span></a>
+        <button id="theme-toggle">Dark/Light Mode</button>
+    </header>
+
+    <div class="glass-container">
+        <h2 id="chapter-title">Đang tải...</h2>
+        <div id="image-list"></div> <!-- Ảnh sẽ được chèn vào đây bởi reader.js -->
+    </div>
+
+    <!-- Thanh điều hướng cố định (Fixed) -->
+    <div class="navigation">
+        <button id="prev-btn">Lùi</button>
+        
+        <div class="menu-container">
+            <button id="menu-btn">≡</button>
+            <div id="chapter-popup" class="popup">
+                <ul id="popup-list"></ul>
+            </div>
+        </div>
+
+        <button id="next-btn">Tiến</button>
+    </div>
+
+    <!-- Import file JS -->
+    <script src="js/reader.js"></script>
+</body>
+</html>

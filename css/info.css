@@ -1,0 +1,165 @@
+.manga-header {
+    display: flex; 
+    gap: 20px;     
+    padding: 20px;
+    align-items: flex-start; 
+}
+
+
+.manga-cover {
+    width: 320px !important;  
+    height: 380px !important; 
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;           
+}
+
+/*jsasj
+
+/* tieu de */
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* trang thai */
+.status {
+    font-size: 20px;
+    font-weight: bold;
+}
+.status.completed { color: #6e6cff; } /* Xanh lá */
+.status.ongoing { color: #02ff52; }   /* Đỏ */
+
+/* tên goc */
+.original-title {
+    font-size: 20px;
+    color: var(--text-muted);
+    margin: 5px 0 15px 0;
+    font-style: italic;
+}
+
+
+.genre-container {
+    display: flex;
+    gap: 10px;
+}
+
+.genre-tag {
+    padding: 5px 15px;
+    border-radius: 20px; 
+    background: rgba(255, 255, 255, 0.085);
+    border: 1px solid #f484bcf9;
+    font-size: 14px;
+}
+
+/* sumarry */
+.summary-section {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #f484bcf9;
+}
+
+.summary-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.summary-text {
+    font-size: 16px;
+    line-height: 1.6; 
+    color: var(--text-muted);
+    text-align: justify; 
+}
+
+.manga-header {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+}
+
+/* khung truyen */
+.info-wrapper {
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;              
+    flex: 1;               
+}
+
+/* can chinh thang hang */
+.title-row h1 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 40px;
+    margin: 0;
+}
+
+/* thang hang*/
+.summary-section {
+    margin-top: 10px;
+}
+
+.chapter-section {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.chapter-list {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+    margin-top: 10px;
+    max-height: 300px;      
+    overflow-y: auto;      
+}
+
+.chapter-item {
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-color);
+    text-decoration: none; 
+    transition: 0.3s;
+}
+
+.chapter-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--glass-border); 
+    padding-left: 20px;     
+}
+/* Thiết lập cho màn hình điện thoại */
+@media screen and (max-width: 600px) {
+    body {
+        padding: 10px; /* Tạo khoảng cách với mép màn hình */
+        margin: 0;
+    }
+
+    /* Khung thông tin truyện */
+    .manga-info-container {
+        display: flex;
+        flex-direction: column; /* Chuyển ảnh lên trên, chữ xuống dưới */
+        padding: 15px;
+    }
+
+    .manga-cover {
+        width: 100%; /* Ảnh full chiều ngang màn hình */
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    /* Danh sách chương */
+    .chapter-list {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .chapter-item {
+        padding: 15px; /* Tăng độ cao để dễ bấm bằng ngón tay */
+        font-size: 16px; /* Chữ to hơn một chút cho dễ đọc */
+        border-bottom: 1px solid #333;
+    }
+}

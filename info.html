@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin truyện</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/info.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header class="glass-header">
+    <a href="index.html" class="logo">Manga<span>AG</span></a>
+        <button id="theme-toggle" class="glass-btn">Dark/Light Mode</button>
+    </header>
+
+    <div class="manga-info-card glass-panel">
+        <div class="info-layout">
+            <!-- Đảm bảo ảnh có class .manga-cover -->
+            <img src="" class="manga-cover" alt="Bìa truyện"> 
+            <div class="info-details">
+                <h1 class="manga-title"></h1> <!-- Đã thêm class -->
+                <p class="original-title"></p>
+                <p class="author"></p>
+                <p class="description"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="chapter-list-container glass-panel">
+        <h2>Danh sách chương</h2>
+        <ul id="chapter-list"></ul>
+    </div>
+
+    <script src="js/info.js"></script>
+</body>
+</html>
