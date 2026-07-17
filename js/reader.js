@@ -124,7 +124,7 @@ function setupNavigation(manga) {
         const li = document.createElement('li');
         li.innerText = chap.name;
         // ĐÃ SỬA: Đổi 'manga=' thành 'id=' để đồng bộ URL
-        li.onclick = () => window.location.href = `reader.html?id=${manga.id}&chap=${i}`;
+        li.onclick = () => window.location.href = `reader.html?id=${manga.id}&chap=${i+1}`;
         list.appendChild(li);
     });
 }
