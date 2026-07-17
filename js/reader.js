@@ -3,12 +3,32 @@ let currentMangaId = null;
 let currentChapIndex = 0; // Luôn lưu index THỰC TẾ của mảng (0, 1, 2...) ở đây để xử lý logic nội bộ
 let mangaData = null;
 
-// Khởi chạy khi trang load xong
+// Khởi chạy khi trang load xong (Đã gộp chung xử lý dữ liệu và Dark Mode)
 document.addEventListener('DOMContentLoaded', async () => {
+    // --- 1. Xử lý Dark/Light Mode ---
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+    }
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
+
+    // --- 2. Xử lý logic tải nội dung Truyện ---
     const params = new URLSearchParams(window.location.search);
     currentMangaId = params.get('id');
     
-    // 🌟 SỬA TẠI ĐÂY: Lấy số chương trên URL (mặc định là 1 nếu không có), sau đó TRỪ ĐI 1 để ra vị trí mảng
+    // Lấy số chương trên URL (mặc định là 1 nếu không có), sau đó TRỪ ĐI 1 để ra vị trí mảng
     const chapFromUrl = parseInt(params.get('chap')) || 1;
     currentChapIndex = chapFromUrl - 1;
 
@@ -120,10 +140,17 @@ function setupNavigation(manga) {
     // Đổ dữ liệu vào Popup
     const list = document.getElementById('popup-list');
     list.innerHTML = '';
+    
     manga.chapters.forEach((chap, i) => {
         const li = document.createElement('li');
         li.innerText = chap.name;
-        // 🌟 Ở ĐÂY BẠN ĐÃ LÀM ĐÚNG: i + 1 để hiển thị chap=1, chap=2 trên URL thanh địa chỉ
+        
+        // 🌟 TÍNH NĂNG MỚI: Nếu index của chương khớp với currentChapIndex đang đọc, gắn class nổi bật
+        if (i === currentChapIndex) {
+            li.classList.add('active-chap');
+        }
+        
+        // Điều hướng chuẩn hóa tham số số chương (i + 1) trên thanh địa chỉ URL
         li.onclick = () => window.location.href = `reader.html?id=${manga.id}&chap=${i + 1}`;
         list.appendChild(li);
     });
@@ -134,28 +161,9 @@ function changeChap(dir) {
     let newIndex = currentChapIndex + dir; // Tính toán vị trí mảng mới
     
     if (newIndex >= 0 && newIndex < manga.chapters.length) {
-        // 🌟 SỬA TẠI ĐÂY: Khi bấm nút Tiến/Lùi, phải CỘNG THÊM 1 vào newIndex để URL hiển thị số chương đúng chuẩn (không bị số 0)
+        // Khi bấm nút Tiến/Lùi, cộng thêm 1 vào newIndex để hiển thị số chương đúng chuẩn trên URL
         window.location.href = `reader.html?id=${currentMangaId}&chap=${newIndex + 1}`;
     } else {
         alert("Đã hết chương!");
     }
 }
-
-// --- Xử lý Dark/Light Mode ---
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    if (localStorage.getItem('theme') === 'dark') {
-        body.classList.add('dark-mode');
-    }
-
-    toggleBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        if (body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-        } else {
-            localStorage.setItem('theme', 'light');
-        }
-    });
-});

@@ -92,12 +92,52 @@ body {
     border: 1px solid #917c7c;
     padding: 10px;
     border-radius: 10px;
-    width: 150px;
-    max-height: 200px;
+    width: 180px;        /* ✨ ĐÃ TĂNG: Nới rộng khung menu một chút để chữ to không bị tràn hàng */
+    max-height: 250px;   /* ✨ ĐÃ TĂNG: Cho phép hiển thị nhiều chương hơn khi cuộn */
     overflow-y: auto;
     z-index: 9999;
 }
-/* Thiết lập màu mặc định (Light Mode) */
+
+/* 🌟 CÁC ĐOẠN ĐƯỢC THÊM MỚI VÀ CHỈNH SỬA CHO MENU POPUP CHƯƠNG */
+
+/* Loại bỏ dấu chấm đầu dòng và reset khoảng cách căn lề */
+#popup-list {
+    list-style-type: none; /* Xóa bỏ dấu chấm */
+    padding: 5px 0;
+    margin: 0;
+}
+
+/* Tinh chỉnh từng dòng chương hiển thị */
+#popup-list li {
+    padding: 10px 15px;
+    font-size: 16px;           /* ✨ ĐÃ TĂNG: Cỡ chữ to rõ ràng hơn */
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;        /* Căn giữa chữ */
+    border-radius: 6px;        /* Bo góc nhẹ để khi hover hoặc active hiện khung trông mượt hơn */
+    margin: 4px 6px;
+    transition: all 0.2s ease; /* Tạo độ mượt khi di chuột và phản hồi hiệu ứng phóng to */
+}
+
+/* Hiệu ứng khi di chuột lên từng chương: phóng to nhẹ và làm sáng nền */
+#popup-list li:hover {
+    transform: scale(1.05);    /* ✨ ĐÃ THÊM: Phóng to nhẹ 5% */
+    background-color: rgba(255, 255, 255, 0.25); /* Tạo lớp nền sáng mờ phía sau */
+}
+
+/* Khung viền chỉ định dành riêng cho Chương HIỆN TẠI đang đọc */
+#popup-list li.active-chap {
+    border: 2px solid #82d0f200; /* ✨ ĐÃ THÊM: Tạo khung viền màu nổi bật bao quanh chương */
+    background-color: rgba(40, 120, 177, 0.54); /* Màu nền hồng nhạt tiệp màu với logo MangaAG */
+    font-weight: bold;         /* Làm chữ đậm hẳn lên */
+}
+
+/* Điều chỉnh màu hover nền cho chế độ Dark Mode của Popup */
+body.dark-mode #popup-list li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
 /* Thiết lập màu mặc định (Light Mode) */
 :root {
     --nav-btn-bg: rgba(255, 255, 255, 0.2);
@@ -286,7 +326,7 @@ body {
 
 /* Biến từng chương thành các khối (giống tấm 2) */
 #chapter-list li {
-    background: rgba(255, 255, 255, 0.05); /* Nền tối nhẹ */
+    background: rgba(255, 255, 255, 0.214); /* Nền tối nhẹ */
     margin-bottom: 10px;
     padding: 15px 20px;
     border-radius: 8px;
