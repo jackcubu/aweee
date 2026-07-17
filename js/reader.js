@@ -1,16 +1,18 @@
 // Biến toàn cục
 let currentMangaId = null;
-let currentChapIndex = 0;
+let currentChapIndex = 0; // Luôn lưu index THỰC TẾ của mảng (0, 1, 2...) ở đây để xử lý logic nội bộ
 let mangaData = null;
 
 // Khởi chạy khi trang load xong
 document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
-    // Đã đồng bộ hoàn toàn: dùng 'id' thay vì 'manga'
     currentMangaId = params.get('id');
-    currentChapIndex = parseInt(params.get('chap')) || 0;
+    
+    // 🌟 SỬA TẠI ĐÂY: Lấy số chương trên URL (mặc định là 1 nếu không có), sau đó TRỪ ĐI 1 để ra vị trí mảng
+    const chapFromUrl = parseInt(params.get('chap')) || 1;
+    currentChapIndex = chapFromUrl - 1;
 
-    console.log("Đang tải truyện ID:", currentMangaId, "| Chương:", currentChapIndex);
+    console.log("Đang tải truyện ID:", currentMangaId, "| Chỉ số mảng thực tế:", currentChapIndex);
 
     try {
         const response = await fetch('js/data.json');
@@ -18,8 +20,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const manga = mangaData.mangas.find(m => m.id === currentMangaId);
         
         if (manga) {
-            renderChapter(manga, currentChapIndex);
-            setupNavigation(manga);
+            // Kiểm tra an toàn phòng trường hợp số chap trên URL bị nhập bậy vượt quá số chương hiện có
+            if (currentChapIndex >= 0 && currentChapIndex < manga.chapters.length) {
+                renderChapter(manga, currentChapIndex);
+                setupNavigation(manga);
+            } else {
+                alert("Chương này không tồn tại!");
+            }
         } else {
             alert("Không tìm thấy dữ liệu truyện cho ID: " + currentMangaId);
         }
@@ -32,14 +39,12 @@ function renderChapter(manga, index) {
     const chapter = manga.chapters[index];
     const imageList = document.getElementById('image-list');
     document.getElementById('chapter-title').innerText = chapter.name;
-    document.getElementById('chapter-title').innerText = chapter.name;
     
-    // ✨ THÊM DÒNG NÀY: Tự động đổi tên tab trình duyệt thành "Tên chương | Tên truyện"
+    // Tự động đổi tên tab trình duyệt thành "Tên chương | Tên truyện"
     document.title = `${chapter.name} | ${manga.title || manga.name}`;
     
     imageList.innerHTML = ''; 
 
-    // HỖ TRỢ CẢ 2 PHƯƠNG ÁN:
     // 1. Nếu file JSON vẫn dùng mảng "images" cũ
     if (chapter.images && chapter.images.length > 0) {
         console.log("Phát hiện cấu trúc cũ (dùng mảng ảnh)");
@@ -47,13 +52,10 @@ function renderChapter(manga, index) {
             const img = document.createElement('img');
             img.src = src;
             img.className = 'manga-page';
-            
-            // ✨ TỐI ƯU TỐC ĐỘ LOAD 
             img.decoding = 'async'; 
             if (idx > 4) {
-                img.loading = 'lazy'; // Chỉ lazy-load từ ảnh thứ 5
+                img.loading = 'lazy'; 
             }
-
             imageList.appendChild(img);
         });
         return;
@@ -73,16 +75,12 @@ function renderChapter(manga, index) {
             const img = document.createElement('img');
             img.src = src;
             img.className = 'manga-page';
+            img.decoding = 'async'; 
             
-            // ✨ TỐI ƯU TỐC ĐỘ LOAD
-            img.decoding = 'async'; // Giải mã ảnh chạy ngầm mượt mà
-            
-            // 4 ảnh đầu load ngay lập tức, từ ảnh thứ 5 trở đi mới bật lazy-load
             if (i - chapter.startImg > 4) {
                 img.loading = 'lazy';
             }
             
-            // Tự ẩn ảnh lỗi nếu trong folder thực tế thiếu mất số ảnh đó
             img.onerror = function() {
                 this.style.display = 'none';
             };
@@ -91,7 +89,6 @@ function renderChapter(manga, index) {
         return;
     }
 
-    // Trường hợp không rơi vào cả 2 (chương trống)
     showEmptyMessage(imageList);
 }
 
@@ -116,7 +113,6 @@ function setupNavigation(manga) {
         popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
     };
 
-    // Click ra ngoài để đóng Popup menu tự động
     document.addEventListener('click', () => {
         popup.style.display = 'none';
     });
@@ -127,18 +123,19 @@ function setupNavigation(manga) {
     manga.chapters.forEach((chap, i) => {
         const li = document.createElement('li');
         li.innerText = chap.name;
-        // ĐÃ SỬA: Đổi 'manga=' thành 'id=' để đồng bộ URL
-        li.onclick = () => window.location.href = `reader.html?id=${manga.id}&chap=${i+1}`;
+        // 🌟 Ở ĐÂY BẠN ĐÃ LÀM ĐÚNG: i + 1 để hiển thị chap=1, chap=2 trên URL thanh địa chỉ
+        li.onclick = () => window.location.href = `reader.html?id=${manga.id}&chap=${i + 1}`;
         list.appendChild(li);
     });
 }
 
 function changeChap(dir) {
     const manga = mangaData.mangas.find(m => m.id === currentMangaId);
-    let newIndex = currentChapIndex + dir;
+    let newIndex = currentChapIndex + dir; // Tính toán vị trí mảng mới
+    
     if (newIndex >= 0 && newIndex < manga.chapters.length) {
-        // ĐÃ SỬA: Đổi 'manga=' thành 'id=' để đồng bộ URL
-        window.location.href = `reader.html?id=${currentMangaId}&chap=${newIndex}`;
+        // 🌟 SỬA TẠI ĐÂY: Khi bấm nút Tiến/Lùi, phải CỘNG THÊM 1 vào newIndex để URL hiển thị số chương đúng chuẩn (không bị số 0)
+        window.location.href = `reader.html?id=${currentMangaId}&chap=${newIndex + 1}`;
     } else {
         alert("Đã hết chương!");
     }
