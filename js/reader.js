@@ -32,6 +32,10 @@ function renderChapter(manga, index) {
     const chapter = manga.chapters[index];
     const imageList = document.getElementById('image-list');
     document.getElementById('chapter-title').innerText = chapter.name;
+    document.getElementById('chapter-title').innerText = chapter.name;
+    
+    // ✨ THÊM DÒNG NÀY: Tự động đổi tên tab trình duyệt thành "Tên chương | Tên truyện"
+    document.title = `${chapter.name} | ${manga.title || manga.name}`;
     
     imageList.innerHTML = ''; 
 
