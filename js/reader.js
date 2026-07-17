@@ -1,26 +1,38 @@
+/* ==========================================================================
+   FILE: reader.js (Đã tích hợp đổi icon DarkMode & Sửa lỗi hiển thị ảnh)
+   ========================================================================== */
+
 // Biến toàn cục
 let currentMangaId = null;
 let currentChapIndex = 0; // Luôn lưu index THỰC TẾ của mảng (0, 1, 2...) ở đây để xử lý logic nội bộ
 let mangaData = null;
 
-// Khởi chạy khi trang load xong (Đã gộp chung xử lý dữ liệu và Dark Mode)
+// Khởi chạy khi trang load xong
 document.addEventListener('DOMContentLoaded', async () => {
-    // --- 1. Xử lý Dark/Light Mode ---
+    // --- 1. Xử lý Dark/Light Mode & Đồng bộ Icon ☀️/🌙 ---
     const toggleBtn = document.getElementById('theme-toggle');
     const body = document.body;
 
-    if (localStorage.getItem('theme') === 'dark') {
+    // Kiểm tra trạng thái đã lưu từ trước
+    const isDark = localStorage.getItem('theme') === 'dark';
+    if (isDark) {
         body.classList.add('dark-mode');
     }
 
+    // Thiết lập hiển thị icon ban đầu dựa trên trạng thái đã lưu
     if (toggleBtn) {
+        toggleBtn.innerText = isDark ? '☀️' : '🌙';
+
+        // Lắng nghe sự kiện click đổi chế độ
         toggleBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
+            const nowDark = body.classList.contains('dark-mode');
+            
+            // Lưu trạng thái nhất quán bằng key 'theme'
+            localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+            
+            // Đổi icon tương ứng mượt mà
+            toggleBtn.innerText = nowDark ? '☀️' : '🌙';
         });
     }
 
@@ -145,7 +157,7 @@ function setupNavigation(manga) {
         const li = document.createElement('li');
         li.innerText = chap.name;
         
-        // 🌟 TÍNH NĂNG MỚI: Nếu index của chương khớp với currentChapIndex đang đọc, gắn class nổi bật
+        // Nếu index của chương khớp với currentChapIndex đang đọc, gắn class nổi bật
         if (i === currentChapIndex) {
             li.classList.add('active-chap');
         }
@@ -161,7 +173,6 @@ function changeChap(dir) {
     let newIndex = currentChapIndex + dir; // Tính toán vị trí mảng mới
     
     if (newIndex >= 0 && newIndex < manga.chapters.length) {
-        // Khi bấm nút Tiến/Lùi, cộng thêm 1 vào newIndex để hiển thị số chương đúng chuẩn trên URL
         window.location.href = `reader.html?id=${currentMangaId}&chap=${newIndex + 1}`;
     } else {
         alert("Đã hết chương!");

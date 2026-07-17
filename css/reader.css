@@ -62,10 +62,10 @@ body {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.121);
+    background: rgba(250, 248, 248, 0.075);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(0,0,0,0.1);
-    padding: 30px 25px;
+    border: 1px solid rgba(244, 241, 241, 0.14);
+    padding: 16px 60px;
     border-radius: 50px;
     display: flex;
     gap: 20px;
@@ -77,6 +77,18 @@ body {
     border: none;
     cursor: pointer;
     font-weight: bold;
+    font-size: 24px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+/* Khi di chuột vào nút chuyển chương */
+.navigation button:hover {
+    /* Tự động đổi màu: Light = Hồng pastel | Dark = Đỏ */
+    color: var(--logo-ag-color); 
+    
+    /* 🌟 HIỆU ỨNG PHÓNG TO: 
+       - scale(1.15) sẽ phóng to nút lên 15% so với kích thước thật
+       - translateY(-2px) nhích nhẹ nút lên trên tạo độ nổi */
+    transform: scale(1.75) translateY(-2px); 
 }
 
 /* 5. Popup chương */
@@ -250,7 +262,8 @@ body {
 }
 
 .glass-btn:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--accent-color);
+    color: white;
 }
 
 /* 6. SLIDER TRUYỆN */
