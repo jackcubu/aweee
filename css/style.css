@@ -1,9 +1,9 @@
-/* 1. KHỞI TẠO BIẾN MÀU (Cơ sở cho Dark/Light Mode) */
+/*darklight mode*/
 :root {
     --bg-gradient: linear-gradient(135deg, #f9f2f7 0%, #fddbe0 100%);
     --bg-header: rgba(255, 255, 255, 0.2);
     --text-color: #333;
-    --logo-ag-color: #ff85a2; /* Hồng pastel cho AG */
+    --logo-ag-color: #ff85a2; 
     --border-color: rgba(255, 255, 255, 0.5);
     --card-bg: rgba(255, 255, 255, 0.25);
 }
@@ -12,12 +12,12 @@ body.dark-mode {
     --bg-gradient: linear-gradient(135deg, #000006 0%, #320a0a 100%);
     --bg-header: rgba(0, 0, 0, 0.3);
     --text-color: #fff;
-    --logo-ag-color: #ff0000; /* Đỏ nổi bật cho AG */
+    --logo-ag-color: #ff0000; 
     --border-color: rgba(255, 255, 255, 0.1);
     --card-bg: rgba(255, 255, 255, 0.05);
 }
 
-/* 2. STYLE CHUNG */
+
 body {
     margin: 0;
     padding: 0;
@@ -28,7 +28,7 @@ body {
     transition: background 0.5s ease;
 }
 
-/* 3. HEADER (Glassmorphism) */
+/* glass stl*/
 .glass-header {
     background: var(--bg-header);
     backdrop-filter: blur(15px);
@@ -55,7 +55,7 @@ body {
     transition: color 0.3s ease;
 }
 
-/* 4. THANH TÌM KIẾM (Căn giữa) */
+
 .search-bar {
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid var(--border-color);
@@ -66,7 +66,7 @@ body {
     color: var(--text-color);
 }
 
-/* 5. BUTTON GLASS */
+/* nút*/
 .glass-btn {
     background: var(--bg-header);
     border: 1px solid var(--border-color);
@@ -82,7 +82,7 @@ body {
     background: rgba(255, 255, 255, 0.4);
 }
 
-/* 6. SLIDER TRUYỆN */
+
 .slider-container {
     padding: 20px;
 }
@@ -107,15 +107,15 @@ body {
     transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.4);
 }
-/* can giua */
+
 .section-title {
-    text-align: center; /* Căn giữa chữ */
-    margin: 30px 0;     /* Tạo khoảng cách trên dưới */
-    font-size: 32px;    /* Làm tiêu đề nổi bật hơn */
+    text-align: center; 
+    margin: 30px 0;     
+    font-size: 32px;    
     color: var(--text-color);
 }
 
-/*/////////////////////////////////////////////////////////////*/
+
 
 
 .glass-panel {
@@ -148,16 +148,15 @@ body {
     border-radius: 15px;
 }
 
-/* Style cho container chứa danh sách chương */
+/*danh sách chương*/
 #chapter-list {
     list-style: none;
     padding: 0;
     margin-top: 20px;
 }
 
-/* Biến từng chương thành các khối (giống tấm 2) */
 #chapter-list li {
-    background: rgba(255, 255, 255, 0.05); /* Nền tối nhẹ */
+    background: rgba(255, 255, 255, 0.05); 
     border: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 10px;
     padding: 15px 20px;
@@ -166,29 +165,27 @@ body {
 }
 
 #chapter-list li:hover {
-    background: rgba(255, 255, 255, 0.1); /* Sáng lên khi di chuột vào */
+    background: rgba(255, 255, 255, 0.1); 
 }
 
-/* Xóa gạch chân và đổi màu chữ cho link */
 #chapter-list li a {
-    text-decoration: none; /* Xóa gạch chân */
-    color: var(--text-color); /* Lấy màu chữ chung của trang */
-    display: block; /* Để bấm vào cả khối đều được */
+    text-decoration: none; 
+    color: var(--text-color); 
+    display: block; 
     font-size: 16px;
 }
 
-/* Thêm hiệu ứng khi hover vào link */
-/*manga trên trang chính*/
+/*các bộ truyện trên trang index*/
 #manga-list {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 bộ mỗi hàng */
-    gap: 15px; /* Khoảng cách giữa các card */
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 15px; 
     padding: 20px;
 }
 
 .manga-card img {
     width: 100%;
-    aspect-ratio: 2 / 3; /* Tỉ lệ chuẩn ảnh bìa manga */
+    aspect-ratio: 2 / 3; 
     object-fit: cover;
     border-radius: 8px;
     display: block;
@@ -199,59 +196,52 @@ body {
     font-size: 18px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Nếu tên quá dài sẽ hiện dấu ... */
+    text-overflow: ellipsis; 
 }
 
 .chapter-count {
     font-size: 18px;
-    color: #000000; /* Màu đỏ nổi bật cho số chương */
+    color: #000000; 
     margin-bottom: 10px;
 }
-/* Khi ở chế độ Dark Mode */
-body.dark-mode .chapter-count {
-    color: #ffffff; /* Chuyển màu chữ sang trắng */
-}
 
-/* Hoặc nếu bạn muốn nó là màu xám nhạt cho dịu mắt */
+body.dark-mode .chapter-count {
+    color: #ffffff;
+}
 body.dark-mode .chapter-count {
     color: #bdc3c7; 
 }
-/*nút nhỏ ở góc bìa*/
-/* --- Chấm trạng thái (Style chung) --- */
+/*nút chấm */
 .status-dot {
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 14px; /* Tăng kích thước xíu để dễ nhìn hiệu ứng */
+    width: 14px; 
     height: 14px;
     border-radius: 50%;
     z-index: 10;
-    border: 2px solid rgba(0, 0, 0, 0.2); /* Viền tối nhẹ */
-    transition: all 0.3s ease; /* Hiệu ứng mượt mà */
+    border: 2px solid rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease; 
 }
 
-/* Hiệu ứng khi rê chuột vào card (tùy chọn, làm sáng thêm) */
 .manga-card:hover .status-dot {
-    filter: brightness(1.2); /* Sáng hơn khi hover */
+    filter: brightness(1.2); 
 }
 
-/* --- Đèn Neon Xanh lá (Ongoing) --- */
+/* màu chấm trạng thái truyện */
 .dot-ongoing {
-    /* Màu xanh neon tươi */
     background-color: #39ff14; 
-    /* Xếp 3 lớp bóng: bóng mờ nhỏ, bóng trung bình, bóng tỏa rộng */
     box-shadow: 
-        0 0 5px #39ff14,   /* Bóng sát tâm */
-        0 0 10px #39ff14,  /* Bóng tỏa trung bình */
-        0 0 20px #32cd32,  /* Bóng tỏa rộng màu xanh đậm hơn */
-        inset 0 0 5px rgba(255,255,255,0.5); /* Ánh sáng bên trong */
+        0 0 5px #39ff14,   
+        0 0 10px #39ff14,  
+        0 0 20px #32cd32,  
+        inset 0 0 5px rgba(255,255,255,0.5); 
 }
 
-/* --- Đèn Neon Đỏ (Completed) --- */
 .dot-completed {
-    /* Màu đỏ neon rực */
+    
     background-color: #ff073a;
-    /* Xếp 3 lớp bóng đỏ */
+    
     box-shadow: 
         0 0 5px #ff073a,
         0 0 10px #ff073a,

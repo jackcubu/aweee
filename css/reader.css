@@ -1,8 +1,4 @@
-/* ==========================================================================
-   FILE: reader.css (Đã sửa lỗi mờ ảnh, căn chỉnh nút & hiệu ứng Hover)
-   ========================================================================== */
 
-/* Đảm bảo Header luôn ở trên cùng */
 .reader-header {
     display: flex;
     justify-content: space-between;
@@ -10,21 +6,21 @@
     padding: 15px 30px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    position: fixed; /* Header dính ở trên cố định */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 2000; /* Phải cao hơn tất cả */
+    z-index: 2000;
     box-sizing: border-box;
 }
 
-/* Khoảng cách cho nội dung không bị header che */
+
 body {
-    padding-top: 70px; /* Đẩy nội dung xuống dưới header */
+    padding-top: 70px; 
     margin: 0;
 }
 
-/* 1. BODY */
+
 body {
     background: linear-gradient(135deg, #ffdee9, #b5fffc);
     font-family: 'Times New Roman', serif;
@@ -41,7 +37,7 @@ body {
     border: none !important;
     box-shadow: none !important;
     
-    /* Giữ lại khoảng cách và căn giữa */
+   
     width: 100%;
     max-width: 800px;
     margin: 80px auto 100px auto;
@@ -52,28 +48,27 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 0; /* Ảnh dính sát nhau */
-}
+    gap: 0;
 
-/* 🌟 ĐÃ CẬP NHẬT: Khắc phục triệt để lỗi mờ ảnh khi phóng to */
+
 .manga-page {
     width: 100%;
     max-width: 800px;
-    height: auto; /* Cực kỳ quan trọng: Giữ đúng tỷ lệ gốc, không bị kéo giãn hay nén ảnh */
+    height: auto; 
     display: block;
     margin: 0 auto;
     padding: 0;
 
-    /* Bật tăng tốc phần cứng (GPU) giúp render ảnh nét hơn, đặc biệt trên điện thoại và màn hình độ phân giải cao */
+    
     transform: translateZ(0);
     backface-visibility: hidden;
 
-    /* Tối ưu độ tương phản, bỏ pixelated để nét vẽ không bị rỗ */
+    
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
 }
 
-/* 4. Thanh điều hướng (Navigation) */
+
 .navigation {
     position: fixed;
     bottom: 20px;
@@ -82,10 +77,10 @@ body {
     background: rgba(250, 248, 248, 0.075);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(244, 241, 241, 0.14);
-    padding: 16px 40px;      /* Tinh chỉnh lại độ dày cho menu cân đối */
+    padding: 16px 40px;      
     border-radius: 50px;
     display: flex;
-    gap: 25px;               /* Giãn khoảng cách các nút hợp lý */
+    gap: 25px;               
     z-index: 1000;
 }
 
@@ -95,22 +90,20 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 24px;
-    color: var(--nav-btn-color, #333); /* Đồng bộ hệ thống màu chữ */
+    color: var(--nav-btn-color, #333); 
     
-    /* Tạo độ nảy vượt ngưỡng mượt mà khi di chuột */
+    
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
 
-/* Khi di chuột vào nút chuyển chương */
 .navigation button:hover {
-    /* Tự động đổi màu dựa trên biến cấu hình: Light = Hồng pastel | Dark = Đỏ */
+
     color: var(--logo-ag-color); 
-    
-    /* Phóng to sinh động hơn kết hợp nhích nhẹ lên phía trên */
+
     transform: scale(1.3) translateY(-2px); 
 }
 
-/* 5. Popup chương */
+
 .menu-container { position: relative; }
 
 .popup {
@@ -129,14 +122,14 @@ body {
     z-index: 9999;
 }
 
-/* Loại bỏ dấu chấm đầu dòng và reset khoảng cách căn lề */
+
 #popup-list {
     list-style-type: none; 
     padding: 5px 0;
     margin: 0;
 }
 
-/* Tinh chỉnh từng dòng chương hiển thị */
+
 #popup-list li {
     padding: 10px 15px;
     font-size: 16px;           
@@ -148,25 +141,25 @@ body {
     transition: all 0.2s ease; 
 }
 
-/* Hiệu ứng khi di chuột lên từng chương */
+
 #popup-list li:hover {
     transform: scale(1.05);    
     background-color: rgba(255, 255, 255, 0.25); 
 }
 
-/* Khung viền chỉ định dành riêng cho Chương HIỆN TẠI đang đọc */
+
 #popup-list li.active-chap {
     border: 2px solid #82d0f200; 
     background-color: rgba(40, 120, 177, 0.54); 
     font-weight: bold;         
 }
 
-/* Điều chỉnh màu hover nền cho chế độ Dark Mode của Popup */
+
 body.dark-mode #popup-list li:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Thiết lập màu mặc định (Light Mode) */
+
 :root {
     --nav-btn-bg: rgba(255, 255, 255, 0.2);
     --nav-btn-color: #333;
@@ -174,16 +167,15 @@ body.dark-mode #popup-list li:hover {
     --container-bg: rgba(255, 255, 255, 0.8); 
     --container-border: #ccc;
     
-    /* 1. KHỞI TẠO BIẾN MÀU HỆ THỐNG LIGHT */
     --bg-gradient: linear-gradient(135deg, #f9f2f7 0%, #fddbe0 100%);
     --bg-header: rgba(255, 255, 255, 0.2);
     --text-color: #333;
-    --logo-ag-color: #ff85a2; /* Hồng pastel cho AG khi ở Light Mode */
+    --logo-ag-color: #ff85a2; 
     --border-color: rgba(255, 255, 255, 0.5);
     --card-bg: rgba(255, 255, 255, 0.25);
 }
 
-/* Thiết lập màu cho Dark Mode */
+/
 body.dark-mode {
     --nav-btn-bg: rgba(0, 0, 0, 0.3);
     --nav-btn-color: #ffffff;
@@ -191,29 +183,29 @@ body.dark-mode {
     --container-bg: rgba(30, 30, 30, 0.9);
     --container-border: #444;
 
-    /* BIẾN MÀU HỆ THỐNG DARK */
+    
     --bg-gradient: linear-gradient(135deg, #01010b 0%, #320a0a 100%);
     --bg-header: rgba(0, 0, 0, 0.3);
     --text-color: #fff;
-    --logo-ag-color: #ff0000; /* Đỏ nổi bật cho AG khi ở Dark Mode */
+    --logo-ag-color: #ff0000; 
     --border-color: rgba(255, 255, 255, 0.1);
     --card-bg: rgba(255, 255, 255, 0.05);
 }
 
-/* Áp dụng màu cho Popup */
+/
 .popup {
     background: var(--container-bg); 
     border: 1px solid var(--container-border); 
     color: var(--nav-btn-color); 
 }
 
-/* Áp dụng cho các khung lồng nền kính */
+
 .glass-container {
     background: var(--container-bg);
     border: 1px solid var(--container-border);
 }
 
-/* STYLE CHUNG HẬU CẢNH */
+
 body {
     margin: 0;
     padding: 0;
@@ -224,7 +216,7 @@ body {
     transition: background 0.5s ease;
 }
 
-/* HEADER (Glassmorphism) */
+
 .glass-header {
     background: var(--bg-header);
     backdrop-filter: blur(15px);
@@ -251,7 +243,7 @@ body {
     transition: color 0.3s ease;
 }
 
-/* THANH TÌM KIẾM */
+
 .search-bar {
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid var(--border-color);
@@ -262,7 +254,7 @@ body {
     color: var(--text-color);
 }
 
-/* BUTTON GLASS */
+
 .glass-btn {
     background: var(--bg-header);
     border: 1px solid var(--border-color);
@@ -279,7 +271,6 @@ body {
     color: white;
 }
 
-/* SLIDER TRUYỆN */
 .slider-container {
     padding: 20px;
 }
@@ -312,7 +303,7 @@ body {
     color: var(--text-color);
 }
 
-/* KHUNG THÔNG TIN CHI TIẾT */
+
 .glass-panel {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
@@ -368,7 +359,7 @@ body {
     font-size: 16px;
 }
 
-/* MANGA DANH SÁCH CHÍNH */
+
 #manga-list {
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
@@ -410,7 +401,6 @@ body.dark-mode .chapter-count {
     font-size: 40px;
 }
 
-/* Con trỏ dạng bàn tay cho các tương tác điều hướng */
 .navigation button, 
 .menu-container button, 
 #prev-btn, 
@@ -420,7 +410,6 @@ body.dark-mode .chapter-count {
     cursor: pointer; 
 }
 
-/* NÚT ĐỔI THEME GIAO DIỆN */
 #theme-toggle {
     background: rgba(255, 255, 255, 0.2); 
     backdrop-filter: blur(10px);
@@ -440,4 +429,6 @@ body.dark-mode #theme-toggle {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
+
+}
 }

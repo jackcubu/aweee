@@ -18,7 +18,7 @@ async function renderManga(page) {
             
             const totalChapters = manga.chapters ? manga.chapters.length : 0;
 
-            // Đoạn này đã có chấm màu (status-dot)
+            
             card.innerHTML = `
                 <a href="info.html?id=${manga.id}" style="text-decoration:none; color:inherit; position:relative; display:block;">
                     <img src="${manga.cover}" alt="${manga.title}">
@@ -46,7 +46,7 @@ function renderPagination(totalItems) {
 }
 
 window.changePage = (dir) => {
-    // Đảm bảo không bấm lùi quá trang 1
+    
     if (currentPage + dir < 1) return; 
     currentPage += dir;
     renderManga(currentPage);

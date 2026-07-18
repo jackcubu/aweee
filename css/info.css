@@ -1,13 +1,11 @@
-/* ==========================================================================
-   1. HỆ THỐNG BIẾN MÀU (LIGHT/DARK MODE) & CẤU HÌNH CHUNG
-   ========================================================================== */
+
 :root {
     --bg-gradient: linear-gradient(135deg, #ffd1dc, #ffffff, #ffe4e1);
     --glass-bg: rgba(255, 255, 255, 0.4);
     --glass-border: rgba(255, 255, 255, 0.6);
     --text-color: #333333;
     --text-muted: #666666;
-    --accent-color: #ffb6c1; /* Hồng pastel */
+    --accent-color: #ffb6c1;
     --shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.2);
 }
 
@@ -17,7 +15,7 @@ body.dark-mode {
     --glass-border: rgba(255, 0, 0, 0.2);
     --text-color: #f5f5f5;
     --text-muted: #aaaaaa;
-    --accent-color: #dc143c; /* Đỏ Crimson */
+    --accent-color: #dc143c; 
     --shadow: 0 8px 32px 0 rgba(220, 20, 60, 0.3);
 }
 
@@ -31,7 +29,7 @@ body {
     transition: background-image 0.5s ease, color 0.5s ease;
 }
 
-/* Khung Glassmorphism đồng bộ với kod.css */
+
 .glass-panel {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
@@ -41,12 +39,10 @@ body {
     box-shadow: var(--shadow);
     padding: 30px;
     margin: 20px auto;
-    max-width: 1200px; /* Nới rộng khung giống layout container lớn */
+    max-width: 1200px; 
 }
 
-/* ==========================================================================
-   2. KHU VỰC THÔNG TIN TRUYỆN (INFO HEADER)
-   ========================================================================== */
+
 .info-layout {
     display: flex;
     gap: 30px;
@@ -54,7 +50,7 @@ body {
     padding: 10px;
 }
 
-/* Áp dụng kích thước bìa truyện lớn chuẩn từ kod.css */
+
 .manga-cover {
     width: 320px !important;  
     height: 380px !important; 
@@ -71,34 +67,32 @@ body {
     flex: 1;               
 }
 
-/* --- Tiêu đề & Cụm trạng thái thẳng hàng tuyệt đối --- */
-/* --- Tiêu đề & Cụm trạng thái thẳng hàng tuyệt đối --- */
-/* --- Tiêu đề & Cụm trạng thái --- */
+
 .manga-title {
     display: flex;
-    align-items: center;      /* Căn giữa chính xác theo trục dọc */
-    flex-wrap: nowrap;        /* Ép tất cả nằm trên một dòng */
-    gap: 10px;                /* Tạo khoảng cách đều giữa Tên truyện - Chấm xanh - Chữ Ongoing */
+    align-items: center;      
+    flex-wrap: nowrap;        
+    gap: 10px;                
     font-size: 45px;          
     margin: 0;
     font-weight: bold;
 }
 
-/* Định hình dấu chấm tròn trạng thái cố định */
+
 .status-dot {
-    position: static !important; /* 🌟 QUAN TRỌNG: Phá vỡ hoàn toàn absolute cũ, ép nó về hàng lối bình thường */
+    position: static !important; 
     display: inline-block !important;
     width: 8px;               
     height: 8px;
     background-color: #02ff52; 
     border-radius: 50%;
     box-shadow: 0 0 6px #02ff52; 
-    flex-shrink: 0;           /* Không cho phép vòng tròn bị méo */
-    margin: 0;                /* Xóa toàn bộ margin thừa để gap tự tính */
+    flex-shrink: 0;          
+    margin: 0;                
 }
 
 
-/* Chữ hiển thị Ongoing / Completed cạnh dấu chấm */
+
 .status-text {
     font-size: 18px;          
     font-weight: bold;
@@ -107,7 +101,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Tên gốc và tác giả bổ trợ từ style kod.css */
+
 .original-title {
     font-size: 25px;
     color: var(--text-muted);
@@ -121,7 +115,7 @@ body {
     margin: 0;
 }
 
-/* Tách biệt khối tag thể loại bổ trợ từ kod.css */
+
 .genre-container {
     display: flex;
     gap: 10px;
@@ -137,7 +131,7 @@ body {
     color: var(--text-color);
 }
 
-/* Khối tóm tắt cốt truyện */
+
 .description {
     font-size: 16px;
     line-height: 1.6; 
@@ -145,12 +139,10 @@ body {
     text-align: justify;
     margin: 10px 0 0 0;
     padding-top: 15px;
-    border-top: 1px solid var(--glass-border); /* Đường vạch ngăn cách từ kod.css */
+    border-top: 1px solid var(--glass-border); 
 }
 
-/* ==========================================================================
-   3. DANH SÁCH CHƯƠNG (CHAPTER LIST)
-   ========================================================================== */
+
 .chapter-list-container {
     margin-top: 25px;
 }
@@ -174,7 +166,7 @@ body {
     overflow-y: auto;      
 }
 
-/* Định dạng các item chương theo hiệu ứng lướt mượt của kod.css */
+
 #chapter-list li {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
@@ -185,7 +177,7 @@ body {
 #chapter-list li:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: var(--glass-border); 
-    padding-left: 12px; /* Tăng khoảng thụt lề khi hover tạo nét mềm mại */
+    padding-left: 12px; 
 }
 
 #chapter-list li a {
@@ -198,9 +190,7 @@ body {
     cursor: pointer;
 }
 
-/* ==========================================================================
-   4. THIẾT LẬP THANH CUỘN ĐỒNG BỘ ĐỘC QUYỀN (SCROLLBAR)
-   ========================================================================== */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -227,9 +217,7 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
     background: #ca0000; 
 }
 
-/* ==========================================================================
-   5. HIỆU ỨNG ĐỘNG (ANIMATIONS) & RESPONSIVE ĐIỆN THOẠI
-   ========================================================================== */
+
 @keyframes pulse-dot {
     0% {
         transform: scale(1);
@@ -241,7 +229,7 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
     }
 }
 
-/* Thiết lập tối ưu và tự động căn giữa cấu trúc khi sang màn hình mobile */
+/* gaio diện đt*/
 @media screen and (max-width: 768px) {
     .glass-panel {
         padding: 20px;
