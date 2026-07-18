@@ -48,13 +48,13 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 0;
+    gap: 0; /* Ảnh dính sát nhau */
+}
 
-
+/* 🌟 ĐÃ CẬP NHẬT: Khắc phục triệt để lỗi mờ ảnh khi phóng to */
 .manga-page {
     width: 100%;
-    max-width: 800px;
-    height: auto; 
+    max-width: 800px; /* Khống chế chiều rộng tối đa bằng khung container */
     display: block;
     margin: 0 auto;
     padding: 0;
@@ -66,6 +66,7 @@ body {
     
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+    image-rendering: pixelated;                 
 }
 
 
@@ -80,7 +81,7 @@ body {
     padding: 16px 40px;      
     border-radius: 50px;
     display: flex;
-    gap: 25px;               
+    gap: 25px;               /* Giãn khoảng cách các nút hợp lý */
     z-index: 1000;
 }
 
@@ -90,8 +91,7 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 24px;
-    color: var(--nav-btn-color, #333); 
-    
+    color: var(--nav-btn-color, #333); /* Đồng bộ hệ thống màu chữ */
     
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
@@ -175,7 +175,7 @@ body.dark-mode #popup-list li:hover {
     --card-bg: rgba(255, 255, 255, 0.25);
 }
 
-/
+
 body.dark-mode {
     --nav-btn-bg: rgba(0, 0, 0, 0.3);
     --nav-btn-color: #ffffff;
@@ -192,7 +192,7 @@ body.dark-mode {
     --card-bg: rgba(255, 255, 255, 0.05);
 }
 
-/
+
 .popup {
     background: var(--container-bg); 
     border: 1px solid var(--container-border); 
@@ -430,5 +430,4 @@ body.dark-mode #theme-toggle {
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
 
-}
 }
