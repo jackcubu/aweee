@@ -1,3 +1,7 @@
+/* ==========================================================================
+   FILE: reader.css (Đã sửa lỗi mờ ảnh, căn chỉnh nút & hiệu ứng Hover)
+   ========================================================================== */
+
 /* Đảm bảo Header luôn ở trên cùng */
 .reader-header {
     display: flex;
@@ -6,8 +10,9 @@
     padding: 15px 30px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    position: sticky; /* Giữ nó ở trên cùng khi lướt */
+    position: fixed; /* Header dính ở trên cố định */
     top: 0;
+    left: 0;
     width: 100%;
     z-index: 2000; /* Phải cao hơn tất cả */
     box-sizing: border-box;
@@ -18,6 +23,7 @@ body {
     padding-top: 70px; /* Đẩy nội dung xuống dưới header */
     margin: 0;
 }
+
 /* 1. BODY */
 body {
     background: linear-gradient(135deg, #ffdee9, #b5fffc);
@@ -49,11 +55,22 @@ body {
     gap: 0; /* Ảnh dính sát nhau */
 }
 
+/* 🌟 ĐÃ CẬP NHẬT: Khắc phục triệt để lỗi mờ ảnh khi phóng to */
 .manga-page {
     width: 100%;
+    max-width: 800px;
+    height: auto; /* Cực kỳ quan trọng: Giữ đúng tỷ lệ gốc, không bị kéo giãn hay nén ảnh */
     display: block;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
+
+    /* Bật tăng tốc phần cứng (GPU) giúp render ảnh nét hơn, đặc biệt trên điện thoại và màn hình độ phân giải cao */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+
+    /* Tối ưu độ tương phản, bỏ pixelated để nét vẽ không bị rỗ */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 /* 4. Thanh điều hướng (Navigation) */
@@ -65,10 +82,10 @@ body {
     background: rgba(250, 248, 248, 0.075);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(244, 241, 241, 0.14);
-    padding: 16px 60px;
+    padding: 16px 40px;      /* Tinh chỉnh lại độ dày cho menu cân đối */
     border-radius: 50px;
     display: flex;
-    gap: 20px;
+    gap: 25px;               /* Giãn khoảng cách các nút hợp lý */
     z-index: 1000;
 }
 
@@ -78,17 +95,19 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 24px;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: var(--nav-btn-color, #333); /* Đồng bộ hệ thống màu chữ */
+    
+    /* Tạo độ nảy vượt ngưỡng mượt mà khi di chuột */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
+
 /* Khi di chuột vào nút chuyển chương */
 .navigation button:hover {
-    /* Tự động đổi màu: Light = Hồng pastel | Dark = Đỏ */
+    /* Tự động đổi màu dựa trên biến cấu hình: Light = Hồng pastel | Dark = Đỏ */
     color: var(--logo-ag-color); 
     
-    /* 🌟 HIỆU ỨNG PHÓNG TO: 
-       - scale(1.15) sẽ phóng to nút lên 15% so với kích thước thật
-       - translateY(-2px) nhích nhẹ nút lên trên tạo độ nổi */
-    transform: scale(1.75) translateY(-2px); 
+    /* Phóng to sinh động hơn kết hợp nhích nhẹ lên phía trên */
+    transform: scale(1.3) translateY(-2px); 
 }
 
 /* 5. Popup chương */
@@ -104,17 +123,15 @@ body {
     border: 1px solid #917c7c;
     padding: 10px;
     border-radius: 10px;
-    width: 180px;        /* ✨ ĐÃ TĂNG: Nới rộng khung menu một chút để chữ to không bị tràn hàng */
-    max-height: 250px;   /* ✨ ĐÃ TĂNG: Cho phép hiển thị nhiều chương hơn khi cuộn */
+    width: 180px;        
+    max-height: 250px;   
     overflow-y: auto;
     z-index: 9999;
 }
 
-/* 🌟 CÁC ĐOẠN ĐƯỢC THÊM MỚI VÀ CHỈNH SỬA CHO MENU POPUP CHƯƠNG */
-
 /* Loại bỏ dấu chấm đầu dòng và reset khoảng cách căn lề */
 #popup-list {
-    list-style-type: none; /* Xóa bỏ dấu chấm */
+    list-style-type: none; 
     padding: 5px 0;
     margin: 0;
 }
@@ -122,26 +139,26 @@ body {
 /* Tinh chỉnh từng dòng chương hiển thị */
 #popup-list li {
     padding: 10px 15px;
-    font-size: 16px;           /* ✨ ĐÃ TĂNG: Cỡ chữ to rõ ràng hơn */
+    font-size: 16px;           
     font-weight: 500;
     cursor: pointer;
-    text-align: center;        /* Căn giữa chữ */
-    border-radius: 6px;        /* Bo góc nhẹ để khi hover hoặc active hiện khung trông mượt hơn */
+    text-align: center;        
+    border-radius: 6px;        
     margin: 4px 6px;
-    transition: all 0.2s ease; /* Tạo độ mượt khi di chuột và phản hồi hiệu ứng phóng to */
+    transition: all 0.2s ease; 
 }
 
-/* Hiệu ứng khi di chuột lên từng chương: phóng to nhẹ và làm sáng nền */
+/* Hiệu ứng khi di chuột lên từng chương */
 #popup-list li:hover {
-    transform: scale(1.05);    /* ✨ ĐÃ THÊM: Phóng to nhẹ 5% */
-    background-color: rgba(255, 255, 255, 0.25); /* Tạo lớp nền sáng mờ phía sau */
+    transform: scale(1.05);    
+    background-color: rgba(255, 255, 255, 0.25); 
 }
 
 /* Khung viền chỉ định dành riêng cho Chương HIỆN TẠI đang đọc */
 #popup-list li.active-chap {
-    border: 2px solid #82d0f200; /* ✨ ĐÃ THÊM: Tạo khung viền màu nổi bật bao quanh chương */
-    background-color: rgba(40, 120, 177, 0.54); /* Màu nền hồng nhạt tiệp màu với logo MangaAG */
-    font-weight: bold;         /* Làm chữ đậm hẳn lên */
+    border: 2px solid #82d0f200; 
+    background-color: rgba(40, 120, 177, 0.54); 
+    font-weight: bold;         
 }
 
 /* Điều chỉnh màu hover nền cho chế độ Dark Mode của Popup */
@@ -149,58 +166,54 @@ body.dark-mode #popup-list li:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-
 /* Thiết lập màu mặc định (Light Mode) */
 :root {
     --nav-btn-bg: rgba(255, 255, 255, 0.2);
     --nav-btn-color: #333;
     --nav-btn-border: rgba(255, 255, 255, 0.3);
-    /* Màu nền khung */
     --container-bg: rgba(255, 255, 255, 0.8); 
     --container-border: #ccc;
-}
-/* Áp dụng cho Popup */
-.popup {
-    background: var(--container-bg); /* Tự động đổi màu nền */
-    border: 1px solid var(--container-border); /* Tự động đổi màu viền */
-    color: var(--nav-btn-color); /* Chữ cũng đổi theo nút */
+    
+    /* 1. KHỞI TẠO BIẾN MÀU HỆ THỐNG LIGHT */
+    --bg-gradient: linear-gradient(135deg, #f9f2f7 0%, #fddbe0 100%);
+    --bg-header: rgba(255, 255, 255, 0.2);
+    --text-color: #333;
+    --logo-ag-color: #ff85a2; /* Hồng pastel cho AG khi ở Light Mode */
+    --border-color: rgba(255, 255, 255, 0.5);
+    --card-bg: rgba(255, 255, 255, 0.25);
 }
 
-/* Áp dụng cho bất kỳ khung nào khác nếu có (ví dụ glass-container nếu bạn dùng lại) */
-.glass-container {
-    background: var(--container-bg);
-    border: 1px solid var(--container-border);
-}
 /* Thiết lập màu cho Dark Mode */
 body.dark-mode {
     --nav-btn-bg: rgba(0, 0, 0, 0.3);
     --nav-btn-color: #ffffff;
     --nav-btn-border: rgba(255, 255, 255, 0.1);
-    /* Màu nền khung tối */
     --container-bg: rgba(30, 30, 30, 0.9);
     --container-border: #444;
-}
 
-/* 1. KHỞI TẠO BIẾN MÀU (Cơ sở cho Dark/Light Mode) */
-:root {
-    --bg-gradient: linear-gradient(135deg, #f9f2f7 0%, #fddbe0 100%);
-    --bg-header: rgba(255, 255, 255, 0.2);
-    --text-color: #333;
-    --logo-ag-color: #ff85a2; /* Hồng pastel cho AG */
-    --border-color: rgba(255, 255, 255, 0.5);
-    --card-bg: rgba(255, 255, 255, 0.25);
-}
-
-body.dark-mode {
+    /* BIẾN MÀU HỆ THỐNG DARK */
     --bg-gradient: linear-gradient(135deg, #01010b 0%, #320a0a 100%);
     --bg-header: rgba(0, 0, 0, 0.3);
     --text-color: #fff;
-    --logo-ag-color: #ff0000; /* Đỏ nổi bật cho AG */
+    --logo-ag-color: #ff0000; /* Đỏ nổi bật cho AG khi ở Dark Mode */
     --border-color: rgba(255, 255, 255, 0.1);
     --card-bg: rgba(255, 255, 255, 0.05);
 }
 
-/* 2. STYLE CHUNG */
+/* Áp dụng màu cho Popup */
+.popup {
+    background: var(--container-bg); 
+    border: 1px solid var(--container-border); 
+    color: var(--nav-btn-color); 
+}
+
+/* Áp dụng cho các khung lồng nền kính */
+.glass-container {
+    background: var(--container-bg);
+    border: 1px solid var(--container-border);
+}
+
+/* STYLE CHUNG HẬU CẢNH */
 body {
     margin: 0;
     padding: 0;
@@ -211,7 +224,7 @@ body {
     transition: background 0.5s ease;
 }
 
-/* 3. HEADER (Glassmorphism) */
+/* HEADER (Glassmorphism) */
 .glass-header {
     background: var(--bg-header);
     backdrop-filter: blur(15px);
@@ -238,7 +251,7 @@ body {
     transition: color 0.3s ease;
 }
 
-/* 4. THANH TÌM KIẾM (Căn giữa) */
+/* THANH TÌM KIẾM */
 .search-bar {
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid var(--border-color);
@@ -249,7 +262,7 @@ body {
     color: var(--text-color);
 }
 
-/* 5. BUTTON GLASS */
+/* BUTTON GLASS */
 .glass-btn {
     background: var(--bg-header);
     border: 1px solid var(--border-color);
@@ -266,7 +279,7 @@ body {
     color: white;
 }
 
-/* 6. SLIDER TRUYỆN */
+/* SLIDER TRUYỆN */
 .slider-container {
     padding: 20px;
 }
@@ -291,15 +304,15 @@ body {
     transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.4);
 }
-/* can giua */
+
 .section-title {
-    text-align: center; /* Căn giữa chữ */
-    margin: 30px 0;     /* Tạo khoảng cách trên dưới */
-    font-size: 32px;    /* Làm tiêu đề nổi bật hơn */
+    text-align: center; 
+    margin: 30px 0;     
+    font-size: 32px;    
     color: var(--text-color);
 }
 
-/*/////////////////////////////////////////////////////////////*/
+/* KHUNG THÔNG TIN CHI TIẾT */
 .glass-panel {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
@@ -330,16 +343,14 @@ body {
     border-radius: 15px;
 }
 
-/* Style cho container chứa danh sách chương */
 #chapter-list {
     list-style: none;
     padding: 0;
     margin-top: 20px;
 }
 
-/* Biến từng chương thành các khối (giống tấm 2) */
 #chapter-list li {
-    background: rgba(255, 255, 255, 0.214); /* Nền tối nhẹ */
+    background: rgba(255, 255, 255, 0.214); 
     margin-bottom: 10px;
     padding: 15px 20px;
     border-radius: 8px;
@@ -347,29 +358,27 @@ body {
 }
 
 #chapter-list li:hover {
-    background: rgba(255, 255, 255, 0.1); /* Sáng lên khi di chuột vào */
+    background: rgba(255, 255, 255, 0.1); 
 }
 
-/* Xóa gạch chân và đổi màu chữ cho link */
 #chapter-list li a {
-    text-decoration: none; /* Xóa gạch chân */
-    color: var(--text-color); /* Lấy màu chữ chung của trang */
-    display: block; /* Để bấm vào cả khối đều được */
+    text-decoration: none; 
+    color: var(--text-color); 
+    display: block; 
     font-size: 16px;
 }
 
-/* Thêm hiệu ứng khi hover vào link */
-/*manga trên trang chính*/
+/* MANGA DANH SÁCH CHÍNH */
 #manga-list {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 bộ mỗi hàng */
-    gap: 15px; /* Khoảng cách giữa các card */
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 15px; 
     padding: 20px;
 }
 
 .manga-card img {
     width: 100%;
-    aspect-ratio: 2 / 3; /* Tỉ lệ chuẩn ảnh bìa manga */
+    aspect-ratio: 2 / 3; 
     object-fit: cover;
     border-radius: 8px;
     display: block;
@@ -380,85 +389,55 @@ body {
     font-size: 18px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Nếu tên quá dài sẽ hiện dấu ... */
+    text-overflow: ellipsis; 
 }
 
 .chapter-count {
     font-size: 18px;
-    color: #000000; /* Màu đỏ nổi bật cho số chương */
+    color: #000000; 
     margin-bottom: 10px;
 }
-/* Khi ở chế độ Dark Mode */
-body.dark-mode .chapter-count {
-    color: #ffffff; /* Chuyển màu chữ sang trắng */
-}
 
-/* Hoặc nếu bạn muốn nó là màu xám nhạt cho dịu mắt */
 body.dark-mode .chapter-count {
     color: #bdc3c7; 
 }
+
 #chapter-title {
-    text-align: center; /* Căn giữa chữ */
-    margin-top: 20px;   /* Tạo khoảng cách trên dưới nếu cần */
+    text-align: center; 
+    margin-top: 20px;   
     margin-bottom: 20px;
-    color: var(--text-color, #ffffff); /* Đảm bảo màu chữ hiển thị tốt */
-}
-/* File: reader.css */
-.glass-container {
-    margin-top: 80px; /* Đẩy khối nội dung xuống để không bị header che */
-    margin-bottom: 100px;
+    color: var(--text-color, #ffffff); 
+    font-size: 40px;
 }
 
-.reader-header {
-    position: fixed; /* Header dính ở trên */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-}
-/* Tìm các đoạn định nghĩa nút của bạn và thêm dòng này vào */
+/* Con trỏ dạng bàn tay cho các tương tác điều hướng */
 .navigation button, 
 .menu-container button, 
 #prev-btn, 
 #next-btn, 
-#menu-btn {
-    cursor: pointer; /* Ép con trỏ thành hình bàn tay */
+#menu-btn,
+#popup-list li {
+    cursor: pointer; 
 }
 
-/* Đảm bảo các mục trong danh sách chương cũng có hình bàn tay */
-#popup-list li {
-    cursor: pointer;
-}
+/* NÚT ĐỔI THEME GIAO DIỆN */
 #theme-toggle {
-    /* Phong cách Glass */
     background: rgba(255, 255, 255, 0.2); 
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    
-    /* Căn chỉnh và bo góc */
     padding: 8px 15px;
     border-radius: 20px;
     cursor: pointer;
-    color: var(--text-color, #333); /* Đảm bảo màu chữ hiển thị tốt */
+    color: var(--text-color, #333); 
     transition: all 0.3s ease;
 }
 
-/* Hiệu ứng khi hover */
 #theme-toggle:hover {
     background: rgba(255, 255, 255, 0.4);
 }
 
-/* Đổi màu khi ở Dark Mode */
 body.dark-mode #theme-toggle {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
-}
-#chapter-title {
-    text-align: center; /* Căn giữa */
-    color: var(--text-color); /* Màu chữ theo chế độ sáng/tối */
-    font-size: 40px;
-    margin: 20px 0;
 }
