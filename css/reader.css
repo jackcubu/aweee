@@ -31,18 +31,17 @@ body {
 }
 
 .glass-container {
-    margin-top: 80px;
-    margin-bottom: 100px;
-    background: none !important; 
-    border: none !important;
-    box-shadow: none !important;
-    
-   
     width: 100%;
-    max-width: 800px;
+    max-width: 800px; /* Độ rộng tối đa chuẩn */
     margin: 80px auto 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa các ảnh có kích thước khác nhau */
 }
-
+/* Thêm class này nếu muốn đọc ảnh độ phân giải cao gốc */
+.glass-container.fit-original {
+    max-width: fit-content;
+}
 #image-list {
     display: flex;
     flex-direction: column;
@@ -52,24 +51,23 @@ body {
 }
 
 /* 🌟 ĐÃ CẬP NHẬT: Khắc phục triệt để lỗi mờ ảnh khi phóng to */
+/* 1. Khung chứa tự điều chỉnh linh hoạt theo kích thước ảnh */}
+
+/* 2. Sửa lại class manga-page để không bao giờ bị phóng to vượt kích thước thật */
 .manga-page {
-    width: 100%;
-    max-width: 800px; /* Khống chế chiều rộng tối đa bằng khung container */
+    /* 🌟 QUAN TRỌNG: width: auto giúp ảnh nhỏ KHÔNG bị kéo giãn ra 800px */
+    width: auto !important; 
+    max-width: 100%; /* Nếu ảnh quá to thì tự thu nhỏ vừa khung */
+    height: auto;
+    
     display: block;
     margin: 0 auto;
     padding: 0;
 
-    
-    transform: translateZ(0);
-    backface-visibility: hidden;
-
-    
+    /* Tối ưu thuật toán hiển thị nét cho trình duyệt Chrome/Edge */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
-    image-rendering: pixelated;                 
 }
-
-
 .navigation {
     position: fixed;
     bottom: 20px;
@@ -431,3 +429,25 @@ body.dark-mode #theme-toggle {
     color: #fff;
 
 }
+/* ==========================================
+   📱 TỐI ƯU RIÊNG CHO ĐIỆN THOẠI (Dưới 768px)
+   ========================================== */
+@media (max-width: 768px) {
+    /* 1. Xóa bỏ lề 2 bên màn hình để ảnh tràn viền tối đa */
+    body {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .glass-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 60px !important;
+        margin-bottom: 80px !important;
+    }
+
+    /* 2. Trên điện thoại: Ép ảnh giãn 100% chiều rộng để đọc rõ chữ */
+    .manga-page {
+        width: 100% !important;
+        height: auto !important;
+    }
